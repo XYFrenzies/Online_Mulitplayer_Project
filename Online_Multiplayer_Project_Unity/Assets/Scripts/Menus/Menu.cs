@@ -48,7 +48,7 @@ public class Menu : MonoBehaviour
         return menuButtons;
     }
 
-    public virtual void OnPlayButtonPress(int id)
+    public virtual void OnPlayButtonPress(string id)
     {
         SceneManager.LoadScene(id);
     }
