@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/Scripts/PlayerController/Controllers inputs/FirstPersonInput.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/Scripts/PlayerController/Controllers inputs/ControllerInput.inputactions'
 
 using System;
 using System.Collections;
@@ -6,13 +6,13 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
-public class @FirstPersonInput : IInputActionCollection, IDisposable
+public class @ControllerInput : IInputActionCollection, IDisposable
 {
     public InputActionAsset asset { get; }
-    public @FirstPersonInput()
+    public @ControllerInput()
     {
         asset = InputActionAsset.FromJson(@"{
-    ""name"": ""FirstPersonInput"",
+    ""name"": ""ControllerInput"",
     ""maps"": [
         {
             ""name"": ""ThirdPerson"",
@@ -142,6 +142,22 @@ public class @FirstPersonInput : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Mouse X"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""89c25adf-bead-43d3-bb2a-475e7c290676"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Mouse Y"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""e2c649e6-2a32-46ac-8689-0325db41f35e"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -210,6 +226,28 @@ public class @FirstPersonInput : IInputActionCollection, IDisposable
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2a0bd936-79d3-4ce3-8aa9-6b32a7932054"",
+                    ""path"": ""<Mouse>/delta/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Mouse X"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8ff3e517-137f-44eb-8c07-838b8bc5d5fc"",
+                    ""path"": ""<Mouse>/delta/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Mouse Y"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -252,6 +290,8 @@ public class @FirstPersonInput : IInputActionCollection, IDisposable
         m_FirstPerson = asset.FindActionMap("FirstPerson", throwIfNotFound: true);
         m_FirstPerson_Move = m_FirstPerson.FindAction("Move", throwIfNotFound: true);
         m_FirstPerson_Jump = m_FirstPerson.FindAction("Jump", throwIfNotFound: true);
+        m_FirstPerson_MouseX = m_FirstPerson.FindAction("Mouse X", throwIfNotFound: true);
+        m_FirstPerson_MouseY = m_FirstPerson.FindAction("Mouse Y", throwIfNotFound: true);
         // TopDown
         m_TopDown = asset.FindActionMap("TopDown", throwIfNotFound: true);
         m_TopDown_Newaction = m_TopDown.FindAction("New action", throwIfNotFound: true);
@@ -309,8 +349,8 @@ public class @FirstPersonInput : IInputActionCollection, IDisposable
     private readonly InputAction m_ThirdPerson_Look;
     public struct ThirdPersonActions
     {
-        private @FirstPersonInput m_Wrapper;
-        public ThirdPersonActions(@FirstPersonInput wrapper) { m_Wrapper = wrapper; }
+        private @ControllerInput m_Wrapper;
+        public ThirdPersonActions(@ControllerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_ThirdPerson_Move;
         public InputAction @Jump => m_Wrapper.m_ThirdPerson_Jump;
         public InputAction @Look => m_Wrapper.m_ThirdPerson_Look;
@@ -355,12 +395,16 @@ public class @FirstPersonInput : IInputActionCollection, IDisposable
     private IFirstPersonActions m_FirstPersonActionsCallbackInterface;
     private readonly InputAction m_FirstPerson_Move;
     private readonly InputAction m_FirstPerson_Jump;
+    private readonly InputAction m_FirstPerson_MouseX;
+    private readonly InputAction m_FirstPerson_MouseY;
     public struct FirstPersonActions
     {
-        private @FirstPersonInput m_Wrapper;
-        public FirstPersonActions(@FirstPersonInput wrapper) { m_Wrapper = wrapper; }
+        private @ControllerInput m_Wrapper;
+        public FirstPersonActions(@ControllerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_FirstPerson_Move;
         public InputAction @Jump => m_Wrapper.m_FirstPerson_Jump;
+        public InputAction @MouseX => m_Wrapper.m_FirstPerson_MouseX;
+        public InputAction @MouseY => m_Wrapper.m_FirstPerson_MouseY;
         public InputActionMap Get() { return m_Wrapper.m_FirstPerson; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -376,6 +420,12 @@ public class @FirstPersonInput : IInputActionCollection, IDisposable
                 @Jump.started -= m_Wrapper.m_FirstPersonActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_FirstPersonActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_FirstPersonActionsCallbackInterface.OnJump;
+                @MouseX.started -= m_Wrapper.m_FirstPersonActionsCallbackInterface.OnMouseX;
+                @MouseX.performed -= m_Wrapper.m_FirstPersonActionsCallbackInterface.OnMouseX;
+                @MouseX.canceled -= m_Wrapper.m_FirstPersonActionsCallbackInterface.OnMouseX;
+                @MouseY.started -= m_Wrapper.m_FirstPersonActionsCallbackInterface.OnMouseY;
+                @MouseY.performed -= m_Wrapper.m_FirstPersonActionsCallbackInterface.OnMouseY;
+                @MouseY.canceled -= m_Wrapper.m_FirstPersonActionsCallbackInterface.OnMouseY;
             }
             m_Wrapper.m_FirstPersonActionsCallbackInterface = instance;
             if (instance != null)
@@ -386,6 +436,12 @@ public class @FirstPersonInput : IInputActionCollection, IDisposable
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
+                @MouseX.started += instance.OnMouseX;
+                @MouseX.performed += instance.OnMouseX;
+                @MouseX.canceled += instance.OnMouseX;
+                @MouseY.started += instance.OnMouseY;
+                @MouseY.performed += instance.OnMouseY;
+                @MouseY.canceled += instance.OnMouseY;
             }
         }
     }
@@ -397,8 +453,8 @@ public class @FirstPersonInput : IInputActionCollection, IDisposable
     private readonly InputAction m_TopDown_Newaction;
     public struct TopDownActions
     {
-        private @FirstPersonInput m_Wrapper;
-        public TopDownActions(@FirstPersonInput wrapper) { m_Wrapper = wrapper; }
+        private @ControllerInput m_Wrapper;
+        public TopDownActions(@ControllerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Newaction => m_Wrapper.m_TopDown_Newaction;
         public InputActionMap Get() { return m_Wrapper.m_TopDown; }
         public void Enable() { Get().Enable(); }
@@ -433,6 +489,8 @@ public class @FirstPersonInput : IInputActionCollection, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnMouseX(InputAction.CallbackContext context);
+        void OnMouseY(InputAction.CallbackContext context);
     }
     public interface ITopDownActions
     {
