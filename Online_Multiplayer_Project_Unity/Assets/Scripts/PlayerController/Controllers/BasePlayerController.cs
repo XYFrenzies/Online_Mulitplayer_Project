@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class BasePlayerController: MonoBehaviour
 {
+    #region PlayerControls
+
     protected ControllerInput playerActionAsset;
 
     public PlayerRotation playerStats;
@@ -13,6 +15,10 @@ public class BasePlayerController: MonoBehaviour
     protected InputAction move;
 
     protected Rigidbody rb;
+
+    #endregion
+
+    #region Serialized Objects and Variables
 
     [SerializeField]
     protected float movementForce = 1f;
@@ -26,9 +32,17 @@ public class BasePlayerController: MonoBehaviour
     [SerializeField]
     protected Camera playerCamera;
 
+    #endregion
+
+    #region Private Fields
+
     protected Vector3 forceDirection = Vector3.zero;
 
     private bool isJumping = false;
+
+    private Vector3 jumpMovement;
+
+    #endregion
 
     // Start is called before the first frame update
     public virtual void Awake()
@@ -45,8 +59,8 @@ public class BasePlayerController: MonoBehaviour
     {
         if (IsGrounded())
         {
-            forceDirection += Vector3.up * jumpForce;
-            isJumping = true;
+            jumpMovement += Vector3.up * jumpForce;
+            rb.AddForce(jumpMovement, ForceMode.Impulse);
         }
     }
 
@@ -57,7 +71,7 @@ public class BasePlayerController: MonoBehaviour
     protected virtual bool IsGrounded()
     {
         Ray ray = new Ray(this.transform.position + Vector3.up * 0.25f, Vector3.down);
-        if (Physics.Raycast(ray, out RaycastHit hit, 0.75f))
+        if (Physics.Raycast(ray, out RaycastHit hit, 1.25f))
         {
             return true;
         }
@@ -106,21 +120,6 @@ public class BasePlayerController: MonoBehaviour
     /// </summary>
     protected virtual void VelocitySpeedCheck() 
     {
-        if (rb.velocity.y == 0)
-        {
-            isJumping = false;
-        }
-        else if (rb.velocity.y < 0f && isJumping)
-        {
-            rb.velocity += Vector3.down * Physics.gravity.y * Time.fixedDeltaTime;
-        }
-
-        Vector3 horVeclocity = rb.velocity;
-        horVeclocity.y = 0;
-        if (horVeclocity.sqrMagnitude > maxSpeed * maxSpeed)
-        {
-            rb.velocity = horVeclocity.normalized * maxSpeed;
-        }
     }
 
     public virtual void LookAt()

@@ -15,8 +15,6 @@ public class PlayerController_ThirdPerson : BasePlayerController
     {
         AddForceToPlayer();
 
-        VelocitySpeedCheck();
-
         LookAt();
     }
 }
