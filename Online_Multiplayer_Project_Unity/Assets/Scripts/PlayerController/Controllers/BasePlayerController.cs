@@ -136,4 +136,9 @@ public class BasePlayerController: MonoBehaviour
             rb.angularVelocity = Vector3.zero;
         }
     }
+
+    public virtual float OnPlayerHit() 
+    {
+        return 0;
+    }
 }
