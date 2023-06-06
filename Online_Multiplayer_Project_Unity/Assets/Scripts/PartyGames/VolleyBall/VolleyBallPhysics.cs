@@ -5,19 +5,23 @@ using UnityEngine;
 
 public class VolleyBallPhysics : MonoBehaviour
 {
-    public Action onPlayerHit;
+    public Action<GameObject> onPlayerHit;
     public Action onGroundHit;
+
+    //For testing
+    private bool hasHitOnce = false;
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Floor"))
+        if (collision.gameObject.CompareTag("Ground") && !hasHitOnce)
         {
             onGroundHit.Invoke();
+            hasHitOnce = true;
         }
 
         if (collision.gameObject.CompareTag("Player"))
         {
-            onPlayerHit.Invoke();
+            onPlayerHit.Invoke(collision.gameObject);
         }
     }
 }
